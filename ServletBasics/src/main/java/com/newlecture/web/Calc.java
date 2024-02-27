@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/add")
-public class Add extends HttpServlet {
+@WebServlet("/calc")
+public class Calc extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setCharacterEncoding("UTF-8");
@@ -18,6 +18,7 @@ public class Add extends HttpServlet {
 
 		String x_ = req.getParameter("x");
 		String y_ = req.getParameter("y");
+		String op = req.getParameter("operator");
 		
 		int x = 0;
 		int y = 0;
@@ -25,7 +26,13 @@ public class Add extends HttpServlet {
 		if (!x_.equals("")) x = Integer.parseInt(x_);
 		if (!y_.equals("")) y = Integer.parseInt(y_);
 
-		int result = x + y;
+		int result = 0;
+		
+		if (op.equals("덧셈")) {
+			result = x + y;
+		} else if (op.equals("뺄셈")) {
+			result = x - y;
+		}
 
 		resp.getWriter().printf("result is %d\n", result);
 	}
